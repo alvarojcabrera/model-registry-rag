@@ -54,7 +54,6 @@ Con RAG, el LLM puede "leer" TUS datos y responder sobre ellos.
 - Ya teníamos datos estructurados y limpios
 - No necesitamos OCR ni parseo complejo
 - El caso de uso es concreto: consultar metadatos de modelos
-- Un RAG con PDFs habría sido un desvío innecesario
 
 ### Componente 2: Embeddings (nomic-embed-text-v2-moe)
 
@@ -69,14 +68,14 @@ similar producen vectores cercanos entre sí.
 ```
 
 **¿Por qué nomic-embed-text-v2-moe?**
-- Ya lo tenías instalado en Ollama
+- Ya lo tenía instalado en Ollama
 - Corre 100% local y gratis
 - Buen rendimiento para textos técnicos
 - Evita instalar PyTorch (~2GB) que necesitaría sentence-transformers
 
 **Alternativa considerada:** `all-MiniLM-L6-v2` (sentence-transformers)
 - Requiere instalar torch + sentence-transformers (~3GB extra)
-- Más popular en tutoriales, pero no aporta ventaja aquí
+
 
 ### Componente 3: Vector Store (ChromaDB)
 
