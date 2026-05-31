@@ -1,0 +1,129 @@
+ml_model_configuration:
+  model_identification:
+    name: "CART"
+    version: "V.1.0"
+    ID: "0005_[python]_penicillin_CART"
+    UUID: ""
+    author: "Acosta-Pavas, J. C., Robles-Rodriguez, C. E., Griol, D., Daboussi, F., Aceves-Lara, C. A., & Corrales, D. C"  
+    doi: "https://doi.org/10.1016/j.compchemeng.2024.108736"
+    creation_date: "22-01-2024"
+    project: "../project_info.yaml"
+    status: "online"
+    status_description: "Model is loaded and ready for predictions."      
+
+  model_description:
+    learner: "CART"
+    model_type: "interpretable"   
+    model_name: "CART (Classification And Regression Tree) [Python version]"
+    description: "CART built with scikit-learn and the DecisionTreeRegressor class."
+    language: 
+      - name: "python"
+        version: "3.12.7"      
+    config_files: 
+        model_file: "0005_[python]_penicillin_CART.pkl"
+    packages:
+        package: 
+            - name: "sklearn.tree"
+            - class: "DecisionTreeRegressor"
+            - version: "1.5.2"            
+    input_time_interval: 
+        time_interval:
+            value: 12
+            unit: "minutes"
+        aggregation:
+            method: "NaN"
+            description: "NaN"            
+        description: "One measurement every 12 minutes"            
+
+  training_information:            
+    number_of_instances: 89800  
+    hyperparameters:
+      max_tree_depth: 7  
+    validation: "10-fold CV - 3 repetitions"
+    experiments_ID: [21, 13, 26, 9, 29, 30, 11, 24, 3, 20, 7, 22, 17, 5, 6, 12, 10, 19, 25, 27, 4, 1, 8, 54, 47, 37, 45, 55, 59, 38, 50, 34, 57, 43, 44, 49, 39, 53, 33, 40, 36, 58, 51, 56, 42, 31, 48, 65, 70, 67, 73, 82, 87, 77, 76, 90, 66, 85, 69, 89, 83, 71, 88, 81, 72, 62, 80, 61, 74, 84, 75, 92, 96, 97, 94, 98, 93, 95, 99]
+
+  inputs:
+    features:
+      - name: "temperature"
+        type: "sensor"
+        description: "Current temperature (T) in the bioreactor."
+        units: "K"
+        lag: 0     
+        feature_scaling: 'none'
+        expected_range:
+          min: 298   # 25 °C
+          max: 308   # 35 °C           
+      - name: "pH"
+        type: "sensor"
+        description: "Current pH level in the bioreactor."
+        units: "pH"
+        lag: 0
+        feature_scaling: 'none'  
+        expected_range:
+          min: 5.5
+          max: 7.5        
+      - name: "dissolved_oxygen_concentration"
+        type: "sensor"
+        description: "Dissolved oxygen (DO) concentration in the bioreactor."
+        units: "mg/L"
+        lag: 0
+        feature_scaling: 'none'  
+        expected_range:
+          min: 0
+          max: 10        
+      - name: "agitator"
+        type: "actuator"
+        description: "Agitation speed in revolutions per minute."
+        units: "rpm"
+        lag: 0
+        feature_scaling: 'none' 
+        expected_range:
+          min: 100
+          max: 1200           
+      - name: "CO2_percent_in_off_gas"
+        type: "sensor"
+        description: "CO2 percentage in the off-gas (CO2,og)."
+        units: "%"
+        lag: 0
+        feature_scaling: 'none'
+        expected_range:
+          min: 0
+          max: 10        
+      - name: "oxygen_in_percent_in_off_gas"
+        type: "sensor"
+        description: "O2 percentage in the off-gas (O2,og)."
+        units: "%"
+        lag: 0
+        feature_scaling: 'none'
+        expected_range:
+          min: 10
+          max: 21        
+      - name: "vessel_volume"
+        type: "computed_variable"
+        description: "Total volume of the bioreactor vessel (V)."
+        units: "L"
+        lag: 0
+        feature_scaling: 'none'   
+        expected_range:
+          min: 1
+          max: 1000                                                         
+      - name: "sugar_feed_rate"
+        type: "actuator"  
+        description: "Sugar feed rate (Fs) into the bioreactor."
+        units: "L/h"  
+        lag: 0                                 
+        feature_scaling: 'none'
+        expected_range:
+          min: 0
+          max: 2                
+
+  outputs:
+    information:
+      - name: "penicillin_concentration"
+        description: "Prediction of the penicillin concentration."
+        units: "g L−1"
+        forecast_horizon: 0
+        feature_scaling: 'none'
+        expected_range:
+          min: 0
+          max: 50           
